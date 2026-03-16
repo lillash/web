@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lillash - Jakab Lilla</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    
+    <style>
+        :root {
+            --accent-pink: #f29ec2;
+            --black: #000000;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Playfair Display', serif, Arial;
+        }
+
+        body {
+            background-color: var(--black);
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('background.png');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: var(--white);
+            text-align: center;
+        }
+
+        /* Alsó navigációs sáv */
+        .price-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(242, 158, 194, 0.95);
+            padding: 12px 30px;
+            border-radius: 50px;
+            z-index: 900;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            text-transform: uppercase;
+            width: 85%;
+            max-width: 300px;
+            font-size: 0.9rem;
+        }
+
+        header { padding: 40px 20px 20px; }
+
+        .logo {
+            width: 120px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+        }
+
+        h1 { font-size: 2.5rem; letter-spacing: 4px; color: var(--accent-pink); margin-bottom: 5px; }
+        .owner-name { font-size: 1.2rem; letter-spacing: 2px; margin-bottom: 20px; color: var(--white); opacity: 0.9; }
+
+        .contact-section { 
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 0 auto 30px;
+            max-width: 500px;
+            border: 1px solid rgba(242, 158, 194, 0.2);
+        }
+
+        .contact-link { 
+            display: block; 
+            color: var(--accent-pink); 
+            text-decoration: none; 
+            font-weight: bold; 
+            margin: 8px 0;
+            font-size: 1.1rem;
+        }
+
+        .address { color: #ddd; font-size: 1rem; margin-top: 5px; letter-spacing: 1px; }
+
+        /* Árlista képek */
+        #prices { padding: 20px 20px 120px; }
+        h2 { margin-bottom: 25px; color: var(--accent-pink); text-transform: uppercase; letter-spacing: 2px; }
+
+        .price-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .price-grid img {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 10px;
+            border: 2px solid var(--accent-pink);
+            cursor: pointer;
+        }
+
+        /* Modal (Lightbox) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.98);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            margin: 10px auto;
+            display: block;
+            width: 95%;
+            max-width: 800px;
+            border-radius: 5px;
+        }
+
+        .close-btn {
+            display: block;
+            width: 80%;
+            max-width: 200px;
+            margin: 20px auto;
+            padding: 12px;
+            background: var(--accent-pink);
+            color: black;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        @media (min-width: 768px) {
+            .price-grid { flex-direction: row; justify-content: center; }
+            .price-grid img { width: 30%; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="#prices" class="price-nav">➤ Árlista megtekintése</a>
+
+    <header>
+        <img src="logo.png" alt="Lillash" class="logo">
+        <h1>LILLASH</h1>
+        <div class="owner-name">JAKAB LILLA</div>
+
+        <div class="contact-section">
+            <a href="tel:+36204687712" class="contact-link">📞 06 20 468 7712</a>
+            <a href="mailto:lillashesmassage@gmail.com" class="contact-link">✉ lillashesmassage@gmail.com</a>
+            <p class="address">📍 Kiskunfélegyháza</p>
+        </div>
+    </header>
+
+    <section id="prices">
+        <h2>Árlisták</h2>
+        <div class="price-grid">
+            <img src="lash.png" alt="Szempilla árlista" onclick="openModal(this.src)">
+            <img src="thai.png" alt="Thai masszázs árlista" onclick="openModal(this.src)">
+            <img src="sved.png" alt="Svéd masszázs árlista" onclick="openModal(this.src)">
+        </div>
+    </section>
+
+    <div id="myModal" class="modal">
+        <button class="close-btn" onclick="closeModal()">⬅ VISSZA</button>
+        <img class="modal-content" id="img01">
+        <button class="close-btn" onclick="closeModal()">⬅ VISSZA</button>
+    </div>
+
+    <footer style="padding-bottom: 100px; color: #666; font-size: 0.8rem;">
+        &copy; 2026 Lillash - Jakab Lilla
+    </footer>
+
+    <script>
+        function openModal(src) {
+            document.getElementById("myModal").style.display = "block";
+            document.getElementById("img01").src = src;
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById("myModal")) {
+                closeModal();
+            }
+        }
+    </script>
+
+</body>
+</html>
